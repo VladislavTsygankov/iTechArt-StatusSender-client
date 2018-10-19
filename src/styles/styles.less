@@ -1,0 +1,125 @@
+@button-colour: #009ed8;
+@button-text: #ffffff;
+@regular-text: #333;
+@button-tint: fadeout(#000, 90%);
+@background: #303036;
+body {
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.main {
+  height: 93vh;
+  box-shadow: inset 0px 0px 5px 3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 23px;
+  width: 250px;
+  position: relative;
+  padding: 0.4em 1em;
+  padding-right: 4em;
+  background: @button-colour;
+  border: none;
+  color: white;
+  transition: 0.2s;
+  &:before {
+    background: @button-tint;
+  }
+  &:hover {
+    background: darken(@button-colour, 10%);
+  }
+  &:active,
+  &:focus {
+    background: darken(@button-colour, 30%);
+    outline: none;
+  }
+}
+
+.submit {
+  &:before,
+  &:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    padding-top: inherit;
+    padding-bottom: inherit;
+    width: 2.3em;
+    content: '\27A4';
+    font-family: 'FontAwesome';
+    font-size: 1em;
+    text-align: center;
+    transition: 0.2s;
+    transform-origin: 50% 60%;
+  }
+  &:before {
+    content: '\00a0';
+  }
+  &:hover:after {
+    animation: bounceright 0.3s alternate ease infinite;
+    -webkit-animation: bounceright 0.3s alternate ease infinite;
+  }
+}
+
+.back {
+  padding-right: 1em;
+  padding-left: 3.2em;
+  background: #fe5f55;
+  &:hover {
+    background: darken(#fe5f55, 10%);
+  }
+  &:active,
+  &:focus {
+    background: darken(#fe5f55, 30%);
+  }
+  &:before,
+  &:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding-top: inherit;
+    padding-bottom: inherit;
+    width: 2.3em;
+    content: '\2718';
+    font-family: 'FontAwesome';
+    font-size: 1em;
+    text-align: center;
+    transition: 0.2s;
+    transform-origin: 50% 60%;
+  }
+  &:before {
+    content: '\00a0';
+  }
+  &:hover:after {
+    animation: none;
+    transform: scale(1.4);
+  }
+}
+
+@keyframes bounceright {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(5px);
+  }
+}

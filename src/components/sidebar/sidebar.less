@@ -1,0 +1,126 @@
+@color-text: #868E96;
+.sidebar {
+    height: 100vh;
+    transition: .3 ease;
+    &_big {
+        width: 305px;
+    }
+    &_small {
+        width: 105px;
+    }
+    border-right: 1px solid rgba(0, 0, 0, .0625);
+}
+
+.sidebar__logo {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: space-between;
+ 
+    &_small {
+        width: 105px;
+    }
+    &_big {
+        width: 95%;
+    }
+}
+
+.sidebar__logo-img {
+    max-height: 6vh;
+    max-width: 100%;
+}
+
+.sidebar__header {
+    height: 7vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    border-right: 1px solid rgba(0, 0, 0, .0625);
+    border-bottom: 1px solid rgba(0, 0, 0, .0625);
+}
+
+.sidebar__header-caption {
+    font-size: 25px;
+    ;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    transition: 0.2s;
+    transition: .3s ease;
+    text-transform: none;
+}
+
+.dropdown_open {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+.dropdown_close {
+    max-height: 0;
+    transition: max-height 0.25s ease-in-out;
+    overflow: hidden;
+}
+
+.disable{
+    background-color: rgba(0, 0, 0, .7);
+    pointer-events: none;
+}
+
+.sidebar__menu {
+    padding-top: 50px;
+}
+
+.sidebar__item {
+    font-size: 23px;
+    font-weight: 500;
+    color: #72777a;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-bottom: 20px;
+    &:hover {
+        cursor: pointer;
+        color: black;
+    }
+}
+
+.sidebar__item_icon {
+    &-project {
+        color: desaturate(#46a7f5, 20%);
+        &:hover {
+            cursor: pointer;
+            color: #46a7f5;
+        }
+    }
+    &-history {
+        color: desaturate(#ffa013, 20%);
+        &:hover {
+            cursor: pointer;
+            color: #ffa013;
+        }
+    }
+    &-project-manager {
+        color: #72777a;
+        &:hover {
+            cursor: pointer;
+            color: black;
+        }
+    }
+}
+
+.sidebar__title {
+    font-size: 25px;
+    text-align: left;
+}
+
+.sidebar__subtitle {
+    font-size: 20px;
+    font-weight: 400;
+    padding: 10px 15px;
+}

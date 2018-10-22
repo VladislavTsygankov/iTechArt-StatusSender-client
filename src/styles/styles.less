@@ -40,6 +40,7 @@ ul {
   border: none;
   color: white;
   transition: 0.2s;
+  user-select: none;
   &:before {
     background: @button-tint;
   }
@@ -113,6 +114,12 @@ ul {
     animation: none;
     transform: scale(1.4);
   }
+}
+
+.disable{
+  pointer-events: none;
+  background: darken(@button-colour, 30%);
+ 
 }
 
 @keyframes bounceright {

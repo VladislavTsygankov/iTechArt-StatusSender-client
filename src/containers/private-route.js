@@ -7,22 +7,18 @@ const PrivateRoute = ({
   isAuthenticate,
   redirectPath,
   ...rest
-}) => {
-  console.log(isAuthenticate);
-
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isAuthenticate ? (
-          <Component {...props}>{props.children}</Component>
-        ) : (
-          <Redirect to={redirectPath} />
-        )
-      }
-    />
-  );
-};
+}) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAuthenticate ? (
+        <Component {...props}>{props.children}</Component>
+      ) : (
+        <Redirect to={redirectPath} />
+      )
+    }
+  />
+);
 
 const mapStateToProps = state => ({
   isAuthenticate: state.login.authorization.isLoggedIn,

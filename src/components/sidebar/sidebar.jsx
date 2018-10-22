@@ -1,14 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { onlyUpdateForKeys } from 'recompose';
 import { Col, Row } from 'react-bootstrap';
-import classNames from 'classnames';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBook,
   faCogs,
   faProjectDiagram,
 } from '@fortawesome/free-solid-svg-icons';
+import SidebarItem from '../sidebar-item/sidebar-item';
 
 import './sidebar.less';
 
@@ -16,6 +14,14 @@ class Sidebar extends React.Component {
   state = {
     isOpenDropdown: false,
   };
+
+  componentDidMount() {
+    const {user, dispatchGetUserProjects } = this.props;
+
+    if(user !== null){
+      dispatchGetUserProjects();
+    };
+  }
 
   onChangeDropdown = () => {
     const { isOpenDropdown } = this.state;
@@ -27,48 +33,30 @@ class Sidebar extends React.Component {
 
   render() {
     const { isOpenDropdown } = this.state;
-    const { user } = this.props;
+    const { user, projects } = this.props;
 
-    return (
-      <Col md={2} className={classNames('sidebar', { disable: user === null })}>
+    return user === null ? null : (
+      <Col md={2} className="sidebar">
         <Row>
           <Col sm={12} md={12} className="sidebar__menu">
-            <Row onClick={this.onChangeDropdown} className="sidebar__item">
-              <Col md={2} sm={2} className="sidebar__item_icon-project">
-                <FontAwesomeIcon icon={faProjectDiagram} />
-              </Col>
-              <Col md={9} className="sidebar__title">
-                Projects
-                <ul
-                  className={classNames({
-                    dropdown_open: isOpenDropdown,
-                    dropdown_close: !isOpenDropdown,
-                  })}
-                >
-                  <li className="sidebar__subtitle">Project 1</li>
-                  <li className="sidebar__subtitle">Project 2</li>
-                </ul>
-              </Col>
-            </Row>
-            <Row className="sidebar__item">
-              <Col md={2} sm={2} className="sidebar__item_icon-history">
-                <FontAwesomeIcon icon={faBook} />
-              </Col>
-              <Col md={9} className="sidebar__title">
-                History
-              </Col>
-            </Row>
-            <Row className="sidebar__item">
-              <Col md={2}>
-                <FontAwesomeIcon
-                  icon={faCogs}
-                  className="sidebar__item_icon-project-manager"
-                />
-              </Col>
-              <Col md={9} className="sidebar__title">
-                Project manager
-              </Col>
-            </Row>
+            <SidebarItem
+              isOpenDropdown={isOpenDropdown}
+              icon={faProjectDiagram}
+              iconClassName="sidebar__item_icon-project"
+              dropdownItems={projects}
+              onClickHandler={this.onChangeDropdown}
+              name="Projects"
+            />
+            <SidebarItem
+              icon={faBook}
+              name="History"
+              iconClassName="sidebar__item_icon-history"
+            />
+            <SidebarItem
+              icon={faCogs}
+              name="Project Manager"
+              iconClassName="sidebar__item_icon-project-manager"
+            />
           </Col>
         </Row>
       </Col>
@@ -76,4 +64,4 @@ class Sidebar extends React.Component {
   }
 }
 
-export default onlyUpdateForKeys(['user'])(Sidebar);
+export default onlyUpdateForKeys(['user', 'projects'])(Sidebar);

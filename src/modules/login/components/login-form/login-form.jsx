@@ -83,50 +83,51 @@ class LoginForm extends Component {
     const { login, password } = this.state;
 
     return (
-      <Col md={8} className="login-form__container">
-        <Row className="login-form__row">
-          <Col md={10} mdPush={1}>
-            <h1>Welcome to Status Sender</h1>
-          </Col>
-        </Row>
-        <Row className="login-form__row">
-          <Col md={10} mdPush={1}>
-            <form className="login-form">
-              <LoginGroup
-                controlId="login"
-                validationState={this.getLoginValidationState}
-                onChange={this.onChangeLogin}
-                value={login}
-                placeholder="Enter login"
-                type="text"
-                label="Your login"
-              />
-              <LoginGroup
-                controlId="password"
-                validationState={this.getPasswordValidationState}
-                onChange={this.onChangePassword}
-                value={password}
-                placeholder="Enter password"
-                type="password"
-                label="Your password"
-              />
-            </form>
-          </Col>
-        </Row>
-        <Row className="login-form__row">
-          <Col md={10} mdPush={1} className="login-form__buttons-container">
-            <button className="button back" type="button">
-              Back
-            </button>
-            <Link to="/myprojects">
-              <button
-                onClick={this.onLogin}
-                className="button submit"
-                type="submit"
-              >
-                Submit
-              </button>
-            </Link>
+      <Col md={12}>
+        <Row className="main">
+          <Col md={8} className="login-form__container">
+            <Row className="login-form__row">
+              <Col md={10} mdPush={1}>
+                <h1>Welcome to Status Sender</h1>
+              </Col>
+            </Row>
+            <Row className="login-form__row">
+              <Col md={10} mdPush={1}>
+                <form className="login-form">
+                  <LoginGroup
+                    controlId="login"
+                    validationState={this.getLoginValidationState}
+                    onChange={this.onChangeLogin}
+                    value={login}
+                    placeholder="Enter login"
+                    type="text"
+                    label="Your login"
+                  />
+                  <LoginGroup
+                    controlId="password"
+                    validationState={this.getPasswordValidationState}
+                    onChange={this.onChangePassword}
+                    value={password}
+                    placeholder="Enter password"
+                    type="password"
+                    label="Your password"
+                  />
+                </form>
+              </Col>
+            </Row>
+            <Row className="login-form__row">
+              <Col md={10} mdPush={1} className="login-form__buttons-container">
+                <Link to="/myprojects">
+                  <button
+                    onClick={this.onLogin}
+                    className="button submit"
+                    type="submit"
+                  >
+                    Submit
+                  </button>
+                </Link>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Col>

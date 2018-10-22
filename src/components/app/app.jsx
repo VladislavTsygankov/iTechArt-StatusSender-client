@@ -17,9 +17,7 @@ const App = ({ history }) => (
       </Row>
       <Row>
         <Sidebar />
-        <Col md={10}>
-          <Row className="main">{routes}</Row>
-        </Col>
+        {routes}
       </Row>
     </Grid>
   </ConnectedRouter>

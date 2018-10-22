@@ -1,8 +1,18 @@
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Sidebar from '../components/sidebar/sidebar';
+import { getUserProject } from '../actions/sidebar';
 
 const mapStateToProps = () => state => ({
   user: state.login.authorization.user,
+  projects: state.sidebar.projects,
 });
 
-export default connect(mapStateToProps)(Sidebar);
+const mapDispatchToProps = () => dispatch => ({
+  dispatchGetUserProjects: bindActionCreators(getUserProject, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Sidebar);

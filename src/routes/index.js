@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from '../containers/private-route';
-import ProjectStatus from '../modules/project-status/components/project-status/project-status';
+import ProjectStatus from '../modules/project-status/containers/project-status';
 import LoginForm from '../modules/login/containers/login-form';
 
 const routes = (

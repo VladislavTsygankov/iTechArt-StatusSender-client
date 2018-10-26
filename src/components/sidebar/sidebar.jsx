@@ -1,5 +1,4 @@
 import React from 'react';
-import { onlyUpdateForKeys } from 'recompose';
 import { Col, Row } from 'react-bootstrap';
 import {
   faBook,
@@ -7,6 +6,7 @@ import {
   faProjectDiagram,
 } from '@fortawesome/free-solid-svg-icons';
 import SidebarItem from '../sidebar-item/sidebar-item';
+import SidebarDropdown from '../sidebar-dropdown/sidebar-dropdown';
 
 import './sidebar.less';
 
@@ -16,19 +16,45 @@ class Sidebar extends React.Component {
   };
 
   componentDidMount() {
-    const {user, dispatchGetUserProjects } = this.props;
+    const { dispatchGetUserProjects, user } = this.props;
 
-    if(user !== null){
+    if (user) {
       dispatchGetUserProjects();
-    };
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { user, projects, dispatchGetUserProjects } = this.props;
+    const { isOpenDropdown } = this.state;
+
+    if (user !== nextProps.user) {
+      dispatchGetUserProjects();
+
+      return true;
+    }
+
+    if (projects !== nextProps.projects) {
+      return true;
+    }
+
+    if (isOpenDropdown !== nextState.isOpenDropdown) {
+      return true;
+    }
+
+    return false;
   }
 
   onChangeDropdown = () => {
     const { isOpenDropdown } = this.state;
+    const { projects } = this.props;
 
-    this.setState({
-      isOpenDropdown: !isOpenDropdown,
-    });
+    if (projects.length === 0) {
+      alert('You are do not have current projects');
+    } else {
+      this.setState({
+        isOpenDropdown: !isOpenDropdown,
+      });
+    }
   };
 
   render() {
@@ -39,23 +65,26 @@ class Sidebar extends React.Component {
       <Col md={2} className="sidebar">
         <Row>
           <Col sm={12} md={12} className="sidebar__menu">
-            <SidebarItem
+            <SidebarDropdown
               isOpenDropdown={isOpenDropdown}
               icon={faProjectDiagram}
               iconClassName="sidebar__item_icon-project"
               dropdownItems={projects}
               onClickHandler={this.onChangeDropdown}
               name="Projects"
+              path="/myprojects"
             />
             <SidebarItem
               icon={faBook}
               name="History"
               iconClassName="sidebar__item_icon-history"
+              path="/history"
             />
             <SidebarItem
               icon={faCogs}
               name="Project Manager"
               iconClassName="sidebar__item_icon-project-manager"
+              path="/project_manager"
             />
           </Col>
         </Row>
@@ -64,4 +93,4 @@ class Sidebar extends React.Component {
   }
 }
 
-export default onlyUpdateForKeys(['user', 'projects'])(Sidebar);
+export default Sidebar;

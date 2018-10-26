@@ -5,15 +5,12 @@ import {
   GET_USER_PROJECTS_SUCCESS,
 } from '../constants/sidebar';
 import { API_SERVER_URL } from '../config';
-import { getLoggedUser } from '../helpers/user-storage';
 
-const getUserProject = () => dispatch => {
+const getUserProjects = () => dispatch => {
   dispatch({ type: GET_USER_PROJECTS_REQUEST });
 
   axios
-    .get(`${API_SERVER_URL}api/projects/my`, {
-      headers: { Authorization: `Bearer ${getLoggedUser().token}` },
-    })
+    .get(`${API_SERVER_URL}api/projects/my`)
     .then(response => {
       dispatch({ type: GET_USER_PROJECTS_SUCCESS, payload: response.data });
     })
@@ -23,4 +20,4 @@ const getUserProject = () => dispatch => {
     });
 };
 
-export { getUserProject };
+export { getUserProjects };

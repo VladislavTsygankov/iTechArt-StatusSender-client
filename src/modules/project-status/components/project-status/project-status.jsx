@@ -37,6 +37,7 @@ class ProjectStatus extends Component {
       projectId !== nextProps.projectId
     ) {
       dispatchGetCurrentStatus(nextProps.projectId);
+      
       return true;
     }
 
@@ -78,15 +79,15 @@ class ProjectStatus extends Component {
             </Row>
             <Row className="projects__status-container">
               {currentStatus ? (
-                <Col md={10} mdPush={2}>
-                  <Row className="projects__message">
-                    {`Status:  <<${
-                      currentStatus.status
-                    }>>  was sent today(${momentService.convertDate(
-                      currentStatus.date
-                    )}) at ${momentService.convertTime(
-                      currentStatus.time
-                    )} on UTC.`}
+                <Col md={10} mdPush={2}  className="projects__message">
+                  <Row className="project__message_status project__message_line">
+                    {`Status : ${currentStatus.status}`}
+                  </Row>
+                  <Row className="project__message_line">
+                    {`Date : ${momentService.convertDate(currentStatus.date)}`}
+                  </Row>
+                  <Row className="project__message_line">
+                    {`At time : ${currentStatus.time}`}
                   </Row>
                 </Col>
               ) : (

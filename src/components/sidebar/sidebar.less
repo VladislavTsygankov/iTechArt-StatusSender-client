@@ -17,7 +17,6 @@
     overflow-y: hidden;
     display: flex;
     justify-content: space-between;
- 
     &_small {
         width: 105px;
     }
@@ -73,11 +72,11 @@
     overflow: hidden;
 }
 
-.dropdown_open_title{
+.dropdown_open_title {
     color: black;
 }
 
-.disable{
+.disable {
     background-color: rgba(0, 0, 0, .7);
     pointer-events: none;
 }
@@ -95,7 +94,12 @@
     align-items: flex-start;
     padding-bottom: 20px;
     &:hover {
+        text-decoration: none;
         cursor: pointer;
+        color: black;
+    }
+    &:focus {
+        text-decoration: none;
         color: black;
     }
 }
@@ -136,12 +140,12 @@
     padding: 10px 15px;
     transition: 0.2s ease;
     text-decoration: none;
-    &:hover{
+    &:hover {
         font-size: 22px;
         color: black;
         text-decoration: none;
     }
-    &:focus{
+    &:focus {
         color: black;
         text-decoration: none;
     }

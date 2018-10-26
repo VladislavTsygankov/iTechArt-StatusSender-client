@@ -14,14 +14,12 @@ const getCurrentStatus = projectId => dispatch => {
   dispatch({ type: GET_CURRENT_STATUS_REQUEST });
 
   axios
-    .get(`${API_SERVER_URL}api/statushistory/${projectId}`, {
-      headers: { Authorization: `Bearer ${getLoggedUser().token}` },
-    })
+    .get(`${API_SERVER_URL}api/statushistory/${projectId}`)
     .then(response => {
       if (response.status === 200) {
         dispatch({ type: GET_CURRENT_STATUS_SUCCESS, payload: response.data });
       } else {
-          dispatch({type: GET_CURRENT_STATUS_SUCCESS, payload: null,})
+        dispatch({ type: GET_CURRENT_STATUS_SUCCESS, payload: null });
       }
     })
     .catch(err => {
@@ -33,11 +31,10 @@ const getCurrentStatus = projectId => dispatch => {
 const setStatus = (status, projectId) => dispatch => {
   dispatch({ type: SET_CURRENT_STATUS_REQUEST });
 
-  axios({
-      method: 'post',
-      url: `${API_SERVER_URL}api/statushistory/`,
-      data: { status, projectId },
-      headers: { Authorization: `Bearer ${getLoggedUser().token}` },
+  axios
+    .post(`${API_SERVER_URL}api/statushistory/`, {
+      status,
+      projectId,
     })
     .then(response =>
       dispatch({ type: SET_CURRENT_STATUS_SUCCESS, payload: response.data })

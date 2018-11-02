@@ -13,7 +13,17 @@ import {
   EDIT_PROJECT_REQUEST,
   EDIT_PROJECT_SUCCESS,
 } from '../constants/project-manager';
+import {
+  ADD_USER_PROJECT_SUCCESS,
+  DELETE_USER_PROJECT_SUCCESS,
+  EDIT_USER_PROJECT_SUCCESS,
+} from '../../../constants/sidebar';
 import { API_SERVER_URL } from '../../../config';
+
+const isAuthenticatedUserAssigned = (assignedUsers, state) =>
+  assignedUsers.some(
+    assignedUser => assignedUser.id === state.authorization.user.id
+  );
 
 const getAllProjects = () => dispatch => {
   dispatch({ type: GET_ALL_PROJECTS_REQUEST });
@@ -36,6 +46,7 @@ const deleteProjectById = id => dispatch => {
     .delete(`${API_SERVER_URL}api/projects/${id}`)
     .then(() => {
       dispatch({ type: DELETE_PROJECT_SUCCESS, payload: id });
+      dispatch({ type: DELETE_USER_PROJECT_SUCCESS, payload: id });
     })
     .catch(err => {
       dispatch({ type: DELETE_PROJECT_FAILURE });
@@ -43,13 +54,22 @@ const deleteProjectById = id => dispatch => {
     });
 };
 
-const createProject = projectInfo => dispatch => {
+const createProject = projectInfo => (dispatch, getState) => {
   dispatch({ type: CREATE_PROJECT_REQUEST });
 
   axios
     .post(`${API_SERVER_URL}api/projects`, projectInfo)
     .then(response => {
       dispatch({ type: CREATE_PROJECT_SUCCESS, payload: response.data });
+
+      if (
+        isAuthenticatedUserAssigned(response.data.assignedUsers, getState())
+      ) {
+        dispatch({
+          type: ADD_USER_PROJECT_SUCCESS,
+          payload: { id: response.data.id, name: response.data.name },
+        });
+      }
     })
     .catch(err => {
       dispatch({ type: CREATE_PROJECT_FAILURE });
@@ -57,13 +77,27 @@ const createProject = projectInfo => dispatch => {
     });
 };
 
-const editProjectById = projectInfo => dispatch => {
+const editProjectById = projectInfo => (dispatch, getState) => {
   dispatch({ type: EDIT_PROJECT_REQUEST });
 
   axios
     .put(`${API_SERVER_URL}api/projects/${projectInfo.id}`, projectInfo)
     .then(response => {
       dispatch({ type: EDIT_PROJECT_SUCCESS, payload: response.data });
+
+      if (
+        isAuthenticatedUserAssigned(response.data.assignedUsers, getState())
+      ) {
+        dispatch({
+          type: EDIT_USER_PROJECT_SUCCESS,
+          payload: { id: response.data.id, name: response.data.name },
+        });
+      } else {
+        dispatch({
+          type: DELETE_USER_PROJECT_SUCCESS,
+          payload: projectInfo.id,
+        });
+      }
     })
     .catch(err => {
       dispatch({ type: EDIT_PROJECT_FAILURE });

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { onlyUpdateForKeys } from 'recompose';
-import { Row, Col } from 'react-bootstrap';
-import ProjectManagerItem from '../project-manager-item/project-manager-item';
-import AddProjectButton from '../add-project-button/add-project-button';
+import { Col } from 'react-bootstrap';
+import ManagementContainer from '../../../../components/common/management-container/management-container';
 import ProjectModal from '../project-modal/project-modal';
 import { DEFAULT_STATE } from '../../constants/default-state';
-
-import './project-manager.less';
 
 class ProjectManager extends Component {
   state = {
@@ -15,9 +12,10 @@ class ProjectManager extends Component {
   };
 
   componentDidMount() {
-    const { dispatchGetAllProjects } = this.props;
+    const { dispatchGetAllProjects, dispatchGetUsers } = this.props;
 
     dispatchGetAllProjects();
+    dispatchGetUsers();
   }
 
   onDeleteProject = id => {
@@ -45,10 +43,14 @@ class ProjectManager extends Component {
     if (id) {
       const foundProject = projects.filter(project => project.id === id)[0];
 
+      this.onOpenProjectModal();
+
       this.setState({
         projectInfo: { ...foundProject },
       });
     } else {
+      this.onOpenProjectModal();
+
       this.setState({
         projectInfo: { ...DEFAULT_STATE },
       });
@@ -56,20 +58,11 @@ class ProjectManager extends Component {
   };
 
   onCreateProject = () => {
-    const { dispatchGetFreeUsersByProjectId } = this.props;
-
-    dispatchGetFreeUsersByProjectId();
-
     this.onChangeProjectInfo();
-    this.onOpenProjectModal();
   };
 
   onEditProject = id => {
-    const { dispatchGetFreeUsersByProjectId } = this.props;
-
-    dispatchGetFreeUsersByProjectId(id);
     this.onChangeProjectInfo(id);
-    this.onOpenProjectModal();
   };
 
   render() {
@@ -77,7 +70,7 @@ class ProjectManager extends Component {
       projects,
       dispatchEditProject,
       dispatchCreateProject,
-      freeUsers,
+      users,
     } = this.props;
     const { isOpenProjectModal, projectInfo } = this.state;
 
@@ -90,34 +83,17 @@ class ProjectManager extends Component {
           projectInfo={projectInfo}
           onCreateProject={dispatchCreateProject}
           onEditProject={dispatchEditProject}
-          freeUsers={freeUsers}
+          users={users}
         />
-        <Row className="main">
-          <Col md={11} className="project-manager__container">
-            <Row className="project-manager__caption"> Project manager</Row>
-            <Row className="project-manager">
-              <Col md={9}>
-                <Row className="project-manager__projects-list-container">
-                  {projects
-                    ? projects.map(project => (
-                        <ProjectManagerItem
-                          name={project.name}
-                          key={project.id}
-                          onEditProject={this.onEditProject}
-                          onDeleteProject={this.onDeleteProject}
-                          projectId={project.id}
-                        />
-                      ))
-                    : null}
-                </Row>
-              </Col>
-              <AddProjectButton onClickHandler={this.onCreateProject} />
-            </Row>
-          </Col>
-        </Row>
+        <ManagementContainer
+          items={projects}
+          onDeleteHandler={this.onDeleteProject}
+          onEditHandler={this.onEditProject}
+          onCreateHandler={this.onCreateProject}
+        />
       </Col>
     );
   }
 }
 
-export default onlyUpdateForKeys(['projects', 'freeUsers'])(ProjectManager);
+export default onlyUpdateForKeys(['projects', 'users'])(ProjectManager);

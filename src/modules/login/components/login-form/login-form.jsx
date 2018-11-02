@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
 import { isLength } from 'validator';
 import { Link } from 'react-router-dom';
@@ -14,6 +15,10 @@ class LoginForm extends Component {
       login: false,
       password: false,
     },
+  };
+
+  static propTypes = {
+    dispatchSignIn: PropTypes.func.isRequired,
   };
 
   getLoginValidationState = () => {

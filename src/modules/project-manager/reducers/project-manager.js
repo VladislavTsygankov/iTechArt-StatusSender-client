@@ -30,8 +30,8 @@ const projectManagerReducer = handleActions(
       isLoading: false,
       projects: action.payload,
     }),
-    [GET_ALL_PROJECTS_FAILURE]: () => ({
-      ...INITIAL_STATE,
+    [GET_ALL_PROJECTS_FAILURE]: state => ({
+      ...state,
       isLoading: false,
     }),
     [DELETE_PROJECT_REQUEST]: state => ({
@@ -43,8 +43,8 @@ const projectManagerReducer = handleActions(
       isLoading: false,
       projects: state.projects.filter(project => project.id !== action.payload),
     }),
-    [DELETE_PROJECT_FAILURE]: () => ({
-      ...INITIAL_STATE,
+    [DELETE_PROJECT_FAILURE]: state => ({
+      ...state,
       isLoading: false,
     }),
     [CREATE_PROJECT_REQUEST]: state => ({
@@ -56,8 +56,8 @@ const projectManagerReducer = handleActions(
       isLoading: false,
       projects: [...state.projects, action.payload],
     }),
-    [CREATE_PROJECT_FAILURE]: () => ({
-      ...INITIAL_STATE,
+    [CREATE_PROJECT_FAILURE]: state => ({
+      ...state,
       isLoading: false,
     }),
     [EDIT_PROJECT_REQUEST]: state => ({
@@ -71,8 +71,8 @@ const projectManagerReducer = handleActions(
         project => (project.id === action.payload.id ? action.payload : project)
       ),
     }),
-    [EDIT_PROJECT_FAILURE]: () => ({
-      ...INITIAL_STATE,
+    [EDIT_PROJECT_FAILURE]: state => ({
+      ...state,
       isLoading: false,
     }),
   },

@@ -8,7 +8,6 @@ import {
   SET_CURRENT_STATUS_SUCCESS,
 } from '../constants/project-status';
 import { API_SERVER_URL } from '../../../config';
-import { getLoggedUser } from '../../../helpers/user-storage';
 
 const getCurrentStatus = projectId => dispatch => {
   dispatch({ type: GET_CURRENT_STATUS_REQUEST });

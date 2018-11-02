@@ -1,4 +1,5 @@
-@button-colour: #009ed8;
+@submit-colour: #009ed8;
+@back-color: #fe5f55;
 @button-text: #ffffff;
 @regular-text: #333;
 @button-tint: fadeout(#000, 90%);
@@ -15,19 +16,6 @@ ul {
   margin: 0;
 }
 
-#root {
-  height: 100%;
-  width: 100%;
-}
-
-.main {
-  height: 93vh;
-  box-shadow: inset 0px 0px 5px 3px rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .button {
   display: inline-block;
   font-weight: 500;
@@ -35,8 +23,6 @@ ul {
   width: 250px;
   position: relative;
   padding: 0.4em 1em;
-  padding-right: 4em;
-  background: @button-colour;
   border: none;
   color: white;
   transition: 0.2s;
@@ -44,32 +30,34 @@ ul {
   &:before {
     background: @button-tint;
   }
-  &:hover {
-    background: darken(@button-colour, 10%);
-  }
-  &:active,
-  &:focus {
-    background: darken(@button-colour, 30%);
-    outline: none;
+
+  &:after{
+    padding-top: inherit;
+    padding-bottom: inherit;
+    transition: 0.2s;
+    transform-origin: 50% 60%;
   }
 }
 
 .submit {
+  background: @submit-colour;
+  padding-right: 4em;
+  &:active,
+  &:focus {
+    background: darken(@submit-colour, 30%);
+    outline: none;
+  }
+  &:hover {
+    background: darken(@submit-colour, 10%);
+  }
   &:before,
   &:after {
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
-    padding-top: inherit;
-    padding-bottom: inherit;
     width: 2.3em;
-    content: '\27A4';
-    font-family: 'FontAwesome';
-    font-size: 1em;
-    text-align: center;
-    transition: 0.2s;
-    transform-origin: 50% 60%;
+    content: '\27A4';  
   }
   &:before {
     content: '\00a0';
@@ -83,13 +71,13 @@ ul {
 .back {
   padding-right: 1em;
   padding-left: 3.2em;
-  background: #fe5f55;
+  background: @back-color;
   &:hover {
-    background: darken(#fe5f55, 10%);
+    background: darken(@back-color, 10%);
   }
   &:active,
   &:focus {
-    background: darken(#fe5f55, 30%);
+    background: darken(@back-color, 30%);
   }
   &:before,
   &:after {
@@ -97,15 +85,8 @@ ul {
     top: 0;
     bottom: 0;
     left: 0;
-    padding-top: inherit;
-    padding-bottom: inherit;
     width: 2.3em;
     content: '\2718';
-    font-family: 'FontAwesome';
-    font-size: 1em;
-    text-align: center;
-    transition: 0.2s;
-    transform-origin: 50% 60%;
   }
   &:before {
     content: '\00a0';
@@ -116,19 +97,52 @@ ul {
   }
 }
 
-.disable{
+.disable {
   pointer-events: none;
-  background: darken(@button-colour, 30%);
- 
+  background: darken(@submit-colour, 30%);
 }
 
-.link{
+.link {
   text-decoration: none;
-  &:hover{
+  &:hover {
     text-decoration: none;
   }
-  &::focus{
+  &::focus {
     text-decoration: none;
+  }
+}
+
+.pen {
+  color: darken(#ffa013, 11%);
+  cursor: pointer;
+  margin: 5px;
+  transition: 0.2s ease;
+  &:hover {
+    color: #ffa013;
+    transform: scale(1.1);
+  }
+}
+
+.square-icon {
+  cursor: pointer;
+  margin: 5px;
+  transition: 0.2s ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.minus {
+  color: darken(#f44336, 20%);
+  &:hover {
+    color: darken(#f44336, 11%);
+  }
+}
+
+.plus {
+  color: darken(#4caf50, 11%);
+  &:hover {
+    color: #4caf50;
   }
 }
 

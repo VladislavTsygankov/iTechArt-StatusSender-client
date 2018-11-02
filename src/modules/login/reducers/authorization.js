@@ -8,8 +8,8 @@ import { getLoggedUser } from '../../../helpers/user-storage';
 
 const INITIAL_STATE = {
   isLoading: false,
-  isLoggedIn: Boolean(getLoggedUser()),
-  user: getLoggedUser(),
+  user: getLoggedUser() ? getLoggedUser().user : null,
+  token: getLoggedUser() ? getLoggedUser().token : null,
 };
 
 const authorizationReducer = handleActions(
@@ -20,7 +20,8 @@ const authorizationReducer = handleActions(
     }),
     [LOGIN_AUTHORIZATION_SUCCESS]: (state, action) => ({
       ...state,
-      user: action.payload,
+      user: action.payload.user,
+      token: action.payload.token,
       isLoggedIn: true,
       isLoading: false,
     }),

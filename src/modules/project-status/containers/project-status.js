@@ -5,8 +5,8 @@ import { getCurrentStatus, setStatus } from '../actions/project-status';
 
 const mapStateToProps = state => ({
   projectName: state.router.location.state.project.name,
-  projectId: state.router.location.state.project.Id,
-  currentStatus: state.status.status.currentStatus,
+  projectId: state.router.location.state.project.id,
+  currentStatus: state.status.currentStatus,
 });
 
 const mapDispatchToProps = dispatch => ({

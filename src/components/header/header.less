@@ -1,5 +1,4 @@
 @color-text: rgb(62, 67, 71);
-
 .header {
     height: 7vh;
     border-left: 1px solid rgba(0, 0, 0, .0625);
@@ -11,11 +10,17 @@
     color: @color-text;
 }
 
-.header__item{
+.header__item {
     font-size: 20px;
-   
-    &:hover{
-        cursor: pointer;
+    text-decoration: none;
+    color: @color-text;
+    cursor: pointer;
+    &:hover {
+        text-decoration: none;
+        color: black;
+    }
+    &:focus{
+        text-decoration: none;
         color: black;
     }
 }
@@ -30,7 +35,7 @@
     }
 }
 
-.header__toolbar{
+.header__toolbar {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;

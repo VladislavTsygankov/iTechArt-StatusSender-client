@@ -7,7 +7,7 @@ import {
 
 const INITIAL_STATE = {
   isLoading: false,
-  freeUsers: [],
+  users: [],
 };
 
 const widgetReducer = handleActions(
@@ -19,7 +19,7 @@ const widgetReducer = handleActions(
     [GET_FREE_USERS_SUCCESS]: (state, action) => ({
       ...state,
       isLoading: false,
-      freeUsers: action.payload,
+      users: action.payload,
     }),
     [GET_FREE_USERS_FAILURE]: () => ({
       ...INITIAL_STATE,

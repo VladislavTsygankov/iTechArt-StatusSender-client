@@ -6,14 +6,12 @@ import {
   GET_FREE_USERS_SUCCESS,
 } from '../constants/members-widget';
 
-const getFreeUsersByProjectId = projectId => dispatch => {
+const getFreeUsersByProjectId = () => dispatch => {
   dispatch({ type: GET_FREE_USERS_REQUEST });
 
-  const subUrl = projectId === undefined ? '' : `${projectId}/free_users`;  
-
   axios
-    .get(`${API_SERVER_URL}api/users/${subUrl}`)
-    .then(response => {      
+    .get(`${API_SERVER_URL}api/users/`)
+    .then(response => {
       dispatch({ type: GET_FREE_USERS_SUCCESS, payload: response.data });
     })
     .catch(err => {

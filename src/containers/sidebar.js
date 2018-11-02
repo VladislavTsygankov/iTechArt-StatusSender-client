@@ -4,7 +4,7 @@ import Sidebar from '../components/sidebar/sidebar';
 import { getUserProjects } from '../actions/sidebar';
 
 const mapStateToProps = () => state => ({
-  user: state.login.authorization.user,
+  user: state.authorization.user,
   projects: state.sidebar.projects,
 });
 

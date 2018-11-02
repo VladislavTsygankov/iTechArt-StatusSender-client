@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { onlyUpdateForKeys } from 'recompose';
 import { Col, Row } from 'react-bootstrap';
 import {
   faBook,
@@ -15,6 +17,12 @@ class Sidebar extends React.Component {
     isOpenDropdown: false,
   };
 
+  static propTypes = {
+    dispatchGetUserProjects: PropTypes.func.isRequired,
+    projects: PropTypes.arrayOf(PropTypes.object).isRequired,
+    user: PropTypes.object,
+  };
+
   componentDidMount() {
     const { dispatchGetUserProjects, user } = this.props;
 
@@ -23,25 +31,12 @@ class Sidebar extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { user, projects, dispatchGetUserProjects } = this.props;
-    const { isOpenDropdown } = this.state;
+  componentDidUpdate(prevProps) {
+    const { user, dispatchGetUserProjects } = this.props;
 
-    if (user !== nextProps.user) {
+    if (user !== prevProps.user) {
       dispatchGetUserProjects();
-
-      return true;
     }
-
-    if (projects !== nextProps.projects) {
-      return true;
-    }
-
-    if (isOpenDropdown !== nextState.isOpenDropdown) {
-      return true;
-    }
-
-    return false;
   }
 
   onChangeDropdown = () => {
@@ -80,12 +75,14 @@ class Sidebar extends React.Component {
               iconClassName="sidebar__item_icon-history"
               path="/history"
             />
-            <SidebarItem
-              icon={faCogs}
-              name="Project Manager"
-              iconClassName="sidebar__item_icon-project-manager"
-              path="/project_manager"
-            />
+            {user.role === 'admin' ? (
+              <SidebarItem
+                icon={faCogs}
+                name="Project Manager"
+                iconClassName="sidebar__item_icon-project-manager"
+                path="/project_manager"
+              />
+            ) : null}
           </Col>
         </Row>
       </Col>
@@ -93,4 +90,4 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+export default onlyUpdateForKeys(['user', 'projects'])(Sidebar);

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { onlyUpdateForKeys } from 'recompose';
 import { Col, Row } from 'react-bootstrap';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import momentService from '../../../../services/moment-service';
 
 import './project-status.less';
 
@@ -12,8 +12,8 @@ class ProjectStatus extends Component {
   };
 
   static propTypes = {
-    projectId: PropTypes.number.isRequired,
-    projectName: PropTypes.string.isRequired,
+    projectId: PropTypes.number,
+    projectName: PropTypes.string,
     dispatchGetCurrentStatus: PropTypes.func.isRequired,
     dispatchSetStatus: PropTypes.func.isRequired,
   };
@@ -24,28 +24,15 @@ class ProjectStatus extends Component {
     dispatchGetCurrentStatus(projectId);
   }
 
-  shouldComponentUpdate(nextProps) {
-    const {
-      projectName,
-      currentStatus,
-      dispatchGetCurrentStatus,
-      projectId,
-    } = this.props;
+  componentDidUpdate(prevProps) {
+    const { projectName, projectId, dispatchGetCurrentStatus } = this.props;
 
     if (
-      projectName !== nextProps.projectName &&
-      projectId !== nextProps.projectId
+      projectId !== prevProps.projectId &&
+      projectName !== prevProps.projectName
     ) {
-      dispatchGetCurrentStatus(nextProps.projectId);
-      
-      return true;
+      dispatchGetCurrentStatus(projectId);
     }
-
-    if (currentStatus !== nextProps.currentStatus) {
-      return true;
-    }
-
-    return false;
   }
 
   onSetStatus = () => {
@@ -79,12 +66,12 @@ class ProjectStatus extends Component {
             </Row>
             <Row className="projects__status-container">
               {currentStatus ? (
-                <Col md={10} mdPush={2}  className="projects__message">
+                <Col md={10} mdPush={2} className="projects__message">
                   <Row className="project__message_status project__message_line">
                     {`Status : ${currentStatus.status}`}
                   </Row>
                   <Row className="project__message_line">
-                    {`Date : ${momentService.convertDate(currentStatus.date)}`}
+                    {`Date : ${currentStatus.date}`}
                   </Row>
                   <Row className="project__message_line">
                     {`At time : ${currentStatus.time}`}
@@ -126,4 +113,6 @@ class ProjectStatus extends Component {
   }
 }
 
-export default ProjectStatus;
+export default onlyUpdateForKeys(['projectName', 'projectId', 'currentStatus'])(
+  ProjectStatus
+);

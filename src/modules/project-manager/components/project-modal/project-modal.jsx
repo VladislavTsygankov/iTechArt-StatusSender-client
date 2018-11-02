@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import lodash from 'lodash';
 import { onlyUpdateForKeys } from 'recompose';
 import { Modal, Row, Col } from 'react-bootstrap';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ModalSegment from '../modal-segment/modal-segment';
 import ModalMembers from '../modal-members/modal-members';
+import ModalTimePicker from '../modal-time-picker/modal-time-picker';
 import MembersWidget from '../members-widget/members-widget';
 import { DEFAULT_STATE } from '../../constants/default-state';
 
@@ -14,22 +16,23 @@ class ProjectModal extends Component {
   state = {
     isOpenMembersWidget: false,
     project: { ...DEFAULT_STATE },
+    freeUsers: [],
   };
 
   static getDerivedStateFromProps(props, state) {
-    if (state.project.noAssignedUsers !== props.freeUsers) {
-      const changedProject = state.project;
-
-      changedProject.noAssignedUsers = props.freeUsers;
-
+    if (props.projectInfo !== state.project) {
       return {
-        project: changedProject,
+        project: props.projectInfo,
       };
     }
 
-    if (props.projectInfo !== props.project) {
+    if (props.users !== state.freeUsers) {
       return {
-        project: props.projectInfo,
+        freeUsers: lodash.xorWith(
+          props.users,
+          state.project.assignedUsers,
+          lodash.isEqual
+        ),
       };
     }
 
@@ -72,12 +75,11 @@ class ProjectModal extends Component {
     });
   };
 
-  onChangeTimeForSend = event => {
-    const { value } = event.target;
+  onChangeTimeForSend = time => {
     const { project } = this.state;
     const changedProject = project;
 
-    changedProject.timeForSend = value;
+    changedProject.timeForSend = time;
 
     this.setState({
       project: changedProject,
@@ -117,7 +119,7 @@ class ProjectModal extends Component {
     } = this.props;
     const { project } = this.state;
 
-    if (projectInfo !== null) {
+    if (projectInfo.id !== '') {
       onEditProject(project);
       closeModal();
     } else {
@@ -139,42 +141,40 @@ class ProjectModal extends Component {
   };
 
   removeAssignedUser = user => {
-    const { project } = this.state;
+    const { project, freeUsers } = this.state;
     const changedProject = project;
 
     changedProject.assignedUsers = changedProject.assignedUsers.filter(
       assignedUser => assignedUser !== user
     );
-    changedProject.noAssignedUsers = [...changedProject.noAssignedUsers, user];
 
     this.setState({
       project: changedProject,
+      freeUsers: [...freeUsers, user],
     });
   };
 
   addAssignedUser = user => {
-    const { project } = this.state;
+    const { project, freeUsers } = this.state;
     const changedProject = project;
 
     changedProject.assignedUsers = [...changedProject.assignedUsers, user];
-    changedProject.noAssignedUsers = changedProject.noAssignedUsers.filter(
-      noAssignedUser => noAssignedUser !== user
-    );
 
     this.setState({
       project: changedProject,
+      freeUsers: freeUsers.filter(freeUser => freeUser !== user),
     });
   };
 
   render() {
     const { isOpen, closeModal } = this.props;
-    const { project, isOpenMembersWidget } = this.state;
+    const { project, isOpenMembersWidget, freeUsers } = this.state;
 
     return (
       <Modal backdrop="static" bsSize="large" show={isOpen} onHide={closeModal}>
         <MembersWidget
           currentMembers={project.assignedUsers}
-          freeUsers={project.noAssignedUsers}
+          freeUsers={freeUsers}
           projectId={project.id}
           isOpen={isOpenMembersWidget}
           onCloseWidget={this.onCloseMembersWidget}
@@ -196,13 +196,13 @@ class ProjectModal extends Component {
         <Modal.Body>
           <Row className="modal__body">
             <Col md={4} mdPush={1}>
-              <ModalSegment
-                firstLabel="Project name"
-                secondLabel="Time"
-                firstValue={project.name}
-                secondValue={project.timeForSend}
-                firstOnChange={this.onChangeProjectName}
-                secondOnChange={this.onChangeTimeForSend}
+              <ModalTimePicker
+                inputLabel="Project name"
+                pickerLabel="Time"
+                inputValue={project.name}
+                pickerValue={project.timeForSend}
+                inputOnchange={this.onChangeProjectName}
+                pickerOnChange={this.onChangeTimeForSend}
                 caption="Main information"
               />
               <ModalMembers
@@ -258,6 +258,6 @@ class ProjectModal extends Component {
   }
 }
 
-export default onlyUpdateForKeys(['projectInfo', 'isOpen', 'freeUsers'])(
+export default onlyUpdateForKeys(['projectInfo', 'isOpen', 'users'])(
   ProjectModal
 );

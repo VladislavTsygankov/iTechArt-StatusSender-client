@@ -4,14 +4,14 @@ import { Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = ({
   component: Component,
-  isAuthenticate,
+  user,
   redirectPath,
   ...rest
 }) => (
   <Route
     {...rest}
     render={props =>
-      isAuthenticate ? (
+       user !== null ? (
         <Component {...props}>{props.children}</Component>
       ) : (
         <Redirect to={redirectPath} />
@@ -21,7 +21,7 @@ const PrivateRoute = ({
 );
 
 const mapStateToProps = state => ({
-  isAuthenticate: state.login.authorization.isLoggedIn,
+  user: state.authorization.user,
 });
 
 export default connect(mapStateToProps)(PrivateRoute);

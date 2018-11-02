@@ -29,7 +29,7 @@ const SidebarDropdown = ({
       >
         {dropdownItems.map(dropdownItem => (
           <Link
-            key={dropdownItem.Id}
+            key={dropdownItem.id}
             className="sidebar__subtitle"
             to={{
               pathname: path,

@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col } from 'react-bootstrap';
 import { onlyUpdateForKeys } from 'recompose';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import {
   faCog,
   faSignOutAlt,
@@ -20,10 +22,12 @@ const Header = ({ user }) => (
       {user ? (
         <Row className="header__toolbar">
           <Col md={1} sm={1} className="header__item">
-            {user.user.username}
+            {user.username}
           </Col>
-          <Col md={1} sm={1} className="header__item">
-            <FontAwesomeIcon icon={faCog} /> Settings
+          <Col md={1} sm={1}>
+            <Link to="/settings" className="header__item">
+              <FontAwesomeIcon icon={faCog} /> Settings
+            </Link>
           </Col>
           <Col md={2} sm={2} className="header__item">
             <FontAwesomeIcon icon={faSignOutAlt} /> Sign Out
@@ -39,5 +43,9 @@ const Header = ({ user }) => (
     </Col>
   </Row>
 );
+
+Header.propTypes = {
+  user: PropTypes.object,
+};
 
 export default onlyUpdateForKeys(['user'])(Header);

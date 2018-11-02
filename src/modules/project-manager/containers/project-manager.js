@@ -10,8 +10,8 @@ import {
 import { getFreeUsersByProjectId } from '../actions/members-widget';
 
 const mapStateToProps = state => ({
-  projects: state.projects.projectManager.projects,
-  freeUsers: state.projects.widget.freeUsers,
+  projects: state.projectsManager.projects,
+  users: state.usersWidget.users,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
   dispatchDeleteProjectById: bindActionCreators(deleteProjectById, dispatch),
   dispatchEditProject: bindActionCreators(editProjectById, dispatch),
   dispatchCreateProject: bindActionCreators(createProject, dispatch),
-  dispatchGetFreeUsersByProjectId: bindActionCreators(
+  dispatchGetUsers: bindActionCreators(
     getFreeUsersByProjectId,
     dispatch
   ),

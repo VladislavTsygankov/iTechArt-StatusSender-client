@@ -171,7 +171,7 @@ class ProjectModal extends Component {
     const { project, isOpenMembersWidget, freeUsers } = this.state;
 
     return (
-      <Modal backdrop="static" bsSize="large" show={isOpen} onHide={closeModal}>
+      <Modal backdrop="static" bsSize="large" show={isOpen} onHide={closeModal} className="project-modal">
         <MembersWidget
           currentMembers={project.assignedUsers}
           freeUsers={freeUsers}

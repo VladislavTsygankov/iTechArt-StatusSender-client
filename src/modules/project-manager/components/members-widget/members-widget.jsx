@@ -19,7 +19,7 @@ const MembersWidget = ({
   removeAssignedUser,
   addAssignedUser,
 }) => (
-  <Modal backdrop="static" bsSize="sm" show={isOpen}>
+  <Modal backdrop="static" bsSize="sm" show={isOpen}  className="modal-widget">
     <Modal.Header>
       <div className="modal__header">
         <Modal.Title className="modal__title">{`${

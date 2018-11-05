@@ -1,19 +1,22 @@
 @text-color: #4b515b;
-
-.modal-dialog {
-    top: 11%;
-}
-
-.modal__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.modal__icon_close {
-    font-size: 40px;
-    cursor: pointer;
+.project-modal {
+    .modal-dialog {
+        top: 11%;
+    }
+    
+   
+   
+    .modal__footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal__button-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 87%;
+    }
 }
 
 .modal__title {
@@ -24,15 +27,14 @@
     color: @text-color;
 }
 
-.modal__footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.modal__icon_close {
+    font-size: 40px;
+    cursor: pointer;
 }
 
-.modal__button-container {
+.modal__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 87%;
+    width: 100%;
 }

@@ -6,6 +6,7 @@ import ProjectStatus from '../modules/project-status/containers/project-status';
 import LoginForm from '../modules/login/containers/login-form';
 import ProjectManager from '../modules/project-manager/containers/project-manager';
 import Reminders from '../modules/reminders/containers/reminders';
+import StatusHistory from '../modules/status-history/containers/status-history';
 
 const routes = (
   <Switch>
@@ -14,16 +15,18 @@ const routes = (
       component={ProjectStatus}
       redirectPath="/login"
     />
-    <AdminPrivateRoute
-      path="/project_manager"
-      component={ProjectManager}
-    />
+    <AdminPrivateRoute path="/project_manager" component={ProjectManager} />
     <PrivateRoute
       path="/settings"
       component={Reminders}
       redirectPath="/login"
     />
     <Route path="/login" component={LoginForm} />
+    <PrivateRoute
+      path="/history"
+      component={StatusHistory}
+      redirectPath="/login"
+    />
   </Switch>
 );
 

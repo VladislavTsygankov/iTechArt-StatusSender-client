@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { onlyUpdateForKeys } from 'recompose';
+import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -71,7 +72,9 @@ class ProjectStatus extends Component {
                     {`Status : ${currentStatus.status}`}
                   </Row>
                   <Row className="project__message_line">
-                    {`Date : ${currentStatus.date}`}
+                    {`Date : ${moment(currentStatus.date).format(
+                      'DD/MM/YYYY'
+                    )}`}
                   </Row>
                   <Row className="project__message_line">
                     {`At time : ${currentStatus.time}`}

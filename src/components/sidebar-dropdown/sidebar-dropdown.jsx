@@ -17,10 +17,16 @@ const SidebarDropdown = ({
 }) => (
   <Row className="sidebar__item">
     <Col md={2}>
-      <FontAwesomeIcon className={iconClassName} icon={icon} onClick={onClickHandler} />
+      <FontAwesomeIcon
+        className={iconClassName}
+        icon={icon}
+        onClick={onClickHandler}
+      />
     </Col>
     <Col md={9} className="sidebar__title">
-      <Row onClick={onClickHandler}>{name}</Row>
+      <Row onClick={onClickHandler} className="sidebar__title-text">
+        {name}
+      </Row>
       <Row
         className={classNames({
           dropdown_open: isOpenDropdown,

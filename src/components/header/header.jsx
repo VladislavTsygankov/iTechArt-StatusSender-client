@@ -45,7 +45,9 @@ const Header = ({ user }) => (
 );
 
 Header.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number])
+  ),
 };
 
 export default onlyUpdateForKeys(['user'])(Header);

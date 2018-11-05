@@ -30,10 +30,11 @@ const ReminderModal = ({
     </Modal.Header>
     <Modal.Body>
       <TimePicker
+      className="reminder-modal__time-picker"
         onChange={onChangeReminderValue}
         value={value}
         format={24}
-        start="00:50"
+        start="00:05"
         end="05:00"
         step={5}
       />

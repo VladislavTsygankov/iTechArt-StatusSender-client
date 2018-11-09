@@ -1,43 +1,48 @@
 import { handleActions } from 'redux-actions';
 import {
-  GET_CURRENT_STATUS_FAILURE,
-  GET_CURRENT_STATUS_REQUEST,
-  GET_CURRENT_STATUS_SUCCESS,
-  SET_CURRENT_STATUS_FAILURE,
-  SET_CURRENT_STATUS_REQUEST,
-  SET_CURRENT_STATUS_SUCCESS,
+  GET_CURRENT_STATUS,
+  SET_CURRENT_STATUS,
 } from '../constants/project-status';
 
 const INITIAL_STATE = {
   isLoading: false,
   currentStatus: null,
+  error: {
+    type: '',
+    body: null,
+  },
 };
 
 const statusReducer = handleActions(
   {
-    [GET_CURRENT_STATUS_REQUEST]: state => ({
+    [GET_CURRENT_STATUS.REQUEST]: state => ({
       ...state,
       isLoading: true,
+      error: {
+        type: '',
+        body: null,
+      },
     }),
-    [GET_CURRENT_STATUS_SUCCESS]: (state, action) => ({
+    [GET_CURRENT_STATUS.SUCCESS]: (state, action) => ({
       ...state,
       isLoading: false,
       currentStatus: action.payload,
     }),
-    [GET_CURRENT_STATUS_FAILURE]: () => ({
-      ...INITIAL_STATE,
+    [GET_CURRENT_STATUS.FAILURE]: (state, action) => ({
+      ...state,
       isLoading: false,
+      error: action.payload,
     }),
-    [SET_CURRENT_STATUS_REQUEST]: state => ({
+    [SET_CURRENT_STATUS.REQUEST]: state => ({
       ...state,
       isLoading: true,
     }),
-    [SET_CURRENT_STATUS_SUCCESS]: (state, action) => ({
+    [SET_CURRENT_STATUS.SUCCESS]: (state, action) => ({
       ...state,
       isLoading: false,
       currentStatus: action.payload,
     }),
-    [SET_CURRENT_STATUS_FAILURE]: () => ({
+    [SET_CURRENT_STATUS.FAILURE]: () => ({
       ...INITIAL_STATE,
       isLoading: false,
     }),

@@ -1,33 +1,41 @@
 import { handleActions } from 'redux-actions';
-import {
-  GET_STATUS_HISTORY_FAILURE,
-  GET_STATUS_HISTORY_REQUEST,
-  GET_STATUS_HISTORY_SUCCESS,
-} from '../constants/status-history';
+import { GET_STATUS_HISTORY } from '../constants/status-history';
 
 const INITIAL_STATE = {
   isLoading: false,
+  error: {
+    type: '',
+    body: null,
+  },
   statuses: [],
+  currentPage: 0,
+  pages: 0,
 };
 
 const statusHistoryReducer = handleActions(
   {
-    [GET_STATUS_HISTORY_REQUEST]: state => ({
+    [GET_STATUS_HISTORY.REQUEST]: state => ({
       ...state,
       isLoading: true,
+      error: {
+        type: '',
+        body: null,
+      },
     }),
-    [GET_STATUS_HISTORY_SUCCESS]: (state, action) => ({
+    [GET_STATUS_HISTORY.SUCCESS]: (state, action) => ({
       ...state,
       isLoading: false,
-      statuses: action.payload,
+      statuses: action.payload.statuses,
+      currentPage: action.payload.currentPage,
+      pages: action.payload.pages,
     }),
-    [GET_STATUS_HISTORY_FAILURE]: () => ({
-      ...INITIAL_STATE,
+    [GET_STATUS_HISTORY.FAILURE]: (state, action) => ({
+      ...state,
       isLoading: false,
+      error: action.payload,
     }),
   },
   INITIAL_STATE
 );
-
 
 export default statusHistoryReducer;

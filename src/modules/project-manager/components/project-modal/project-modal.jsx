@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import lodash from 'lodash';
 import { onlyUpdateForKeys } from 'recompose';
 import { Modal, Row, Col } from 'react-bootstrap';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ModalSegment from '../modal-segment/modal-segment';
 import ModalMembers from '../modal-members/modal-members';
 import ModalTimePicker from '../modal-time-picker/modal-time-picker';
 import MembersWidget from '../members-widget/members-widget';
+import ModalFooter from '../modal-footer/modal-footer';
+import ModalHeader from '../modal-header/modal-header';
 import { DEFAULT_STATE } from '../../constants/default-state';
 
 import './project-modal.less';
@@ -171,7 +171,13 @@ class ProjectModal extends Component {
     const { project, isOpenMembersWidget, freeUsers } = this.state;
 
     return (
-      <Modal backdrop="static" bsSize="large" show={isOpen} onHide={closeModal} className="project-modal">
+      <Modal
+        backdrop="static"
+        bsSize="large"
+        show={isOpen}
+        onHide={closeModal}
+        className="project-modal"
+      >
         <MembersWidget
           currentMembers={project.assignedUsers}
           freeUsers={freeUsers}
@@ -181,18 +187,7 @@ class ProjectModal extends Component {
           removeAssignedUser={this.removeAssignedUser}
           addAssignedUser={this.addAssignedUser}
         />
-        <Modal.Header>
-          <div className="modal__header">
-            <Modal.Title className="modal__title">
-              Project management
-            </Modal.Title>
-            <FontAwesomeIcon
-              icon={faTimes}
-              className="modal__icon_close"
-              onClick={closeModal}
-            />
-          </div>
-        </Modal.Header>
+        <ModalHeader closeModal={closeModal} />
         <Modal.Body>
           <Row className="modal__body">
             <Col md={4} mdPush={1}>
@@ -239,20 +234,10 @@ class ProjectModal extends Component {
             </Col>
           </Row>
         </Modal.Body>
-        <Modal.Footer className="modal__footer">
-          <div className="modal__button-container">
-            <button type="button" className="button back" onClick={closeModal}>
-              Back
-            </button>
-            <button
-              type="button"
-              className="button submit"
-              onClick={this.onSubmitProject}
-            >
-              Submit
-            </button>
-          </div>
-        </Modal.Footer>
+        <ModalFooter
+          closeModal={closeModal}
+          onSubmitProject={this.onSubmitProject}
+        />
       </Modal>
     );
   }

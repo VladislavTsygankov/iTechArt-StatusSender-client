@@ -1,31 +1,27 @@
 import { handleActions } from 'redux-actions';
-import {
-  LOGIN_AUTHORIZATION_FAILURE,
-  LOGIN_AUTHORIZATION_REQUEST,
-  LOGIN_AUTHORIZATION_SUCCESS,
-} from '../constants/login-form';
-import { getLoggedUser } from '../../../helpers/user-storage';
+import { LOGIN_AUTHORIZATION } from '../constants/login-form';
+import { AUTHORIZATION } from '../../../constants/authorization';
 
 const INITIAL_STATE = {
   isLoading: false,
-  user: getLoggedUser() ? getLoggedUser().user : null,
-  token: getLoggedUser() ? getLoggedUser().token : null,
+  user: AUTHORIZATION ? AUTHORIZATION.user : null,
+  token: AUTHORIZATION ? AUTHORIZATION.token : null,
 };
 
 const authorizationReducer = handleActions(
   {
-    [LOGIN_AUTHORIZATION_REQUEST]: state => ({
+    [LOGIN_AUTHORIZATION.REQUEST]: state => ({
       ...state,
       isLoading: true,
     }),
-    [LOGIN_AUTHORIZATION_SUCCESS]: (state, action) => ({
+    [LOGIN_AUTHORIZATION.SUCCESS]: (state, action) => ({
       ...state,
       user: action.payload.user,
       token: action.payload.token,
       isLoggedIn: true,
       isLoading: false,
     }),
-    [LOGIN_AUTHORIZATION_FAILURE]: () => ({
+    [LOGIN_AUTHORIZATION.FAILURE]: () => ({
       ...INITIAL_STATE,
       isLoading: false,
     }),

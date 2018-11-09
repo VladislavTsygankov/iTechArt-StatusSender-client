@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { onlyUpdateForKeys } from 'recompose';
 import { Row, Col, Grid } from 'react-bootstrap';
 import { ConnectedRouter } from 'connected-react-router';
-import Sidebar from '../../containers/sidebar';
+import Sidebar from '../../modules/sidebar/containers/sidebar';
 import Header from '../../containers/header';
 import routes from '../../routes';
 
@@ -24,7 +24,7 @@ const App = ({ history }) => (
 );
 
 App.propTypes = {
-  history: PropTypes.object.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default onlyUpdateForKeys(['history'])(App);

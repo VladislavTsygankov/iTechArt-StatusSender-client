@@ -3,6 +3,7 @@ import { Col } from 'react-bootstrap';
 import { onlyUpdateForKeys } from 'recompose';
 import ReminderModal from '../reminder-modal/reminder-modal';
 import ManagementContainer from '../../../../components/common/management-container/management-container';
+import Notification from '../../../../components/notification/notification';
 
 class Reminders extends Component {
   state = {
@@ -80,10 +81,11 @@ class Reminders extends Component {
 
   render() {
     const { isOpenReminderModal, reminderValue } = this.state;
-    const { dispatchRemoveReminder } = this.props;
+    const { dispatchRemoveReminder, error } = this.props;
 
     return (
       <Col md={10}>
+      <Notification message={error} />
         <ReminderModal
           isOpen={isOpenReminderModal}
           onChangeReminderValue={this.onChangeReminderValue}
@@ -102,4 +104,4 @@ class Reminders extends Component {
   }
 }
 
-export default onlyUpdateForKeys(['reminders'])(Reminders);
+export default onlyUpdateForKeys(['reminders', 'error'])(Reminders);

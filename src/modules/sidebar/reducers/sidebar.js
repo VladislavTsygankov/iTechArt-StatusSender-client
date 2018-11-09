@@ -1,11 +1,9 @@
 import { handleActions } from 'redux-actions';
 import {
-  GET_USER_PROJECTS_FAILURE,
-  GET_USER_PROJECTS_REQUEST,
-  GET_USER_PROJECTS_SUCCESS,
-  ADD_USER_PROJECT_SUCCESS,
-  DELETE_USER_PROJECT_SUCCESS,
-  EDIT_USER_PROJECT_SUCCESS,
+  ADD_USER_PROJECT,
+  EDIT_USER_PROJECT,
+  DELETE_USER_PROJECT,
+  GET_USER_PROJECTS,
 } from '../constants/sidebar';
 
 const INITIAL_STATE = {
@@ -15,28 +13,28 @@ const INITIAL_STATE = {
 
 const sidebarReducer = handleActions(
   {
-    [GET_USER_PROJECTS_REQUEST]: state => ({
+    [GET_USER_PROJECTS.REQUEST]: state => ({
       ...state,
       isLoading: true,
     }),
-    [GET_USER_PROJECTS_SUCCESS]: (state, action) => ({
+    [GET_USER_PROJECTS.SUCCESS]: (state, action) => ({
       ...state,
       isLoading: false,
       projects: action.payload,
     }),
-    [GET_USER_PROJECTS_FAILURE]: () => ({
+    [GET_USER_PROJECTS.FAILURE]: () => ({
       ...INITIAL_STATE,
       isLoading: false,
     }),
-    [ADD_USER_PROJECT_SUCCESS]: (state, action) => ({
+    [ADD_USER_PROJECT]: (state, action) => ({
       ...state,
       projects: [...state.projects, action.payload],
     }),
-    [DELETE_USER_PROJECT_SUCCESS]: (state, action) => ({
+    [DELETE_USER_PROJECT]: (state, action) => ({
       ...state,
       projects: state.projects.filter(project => project.id !== action.payload),
     }),
-    [EDIT_USER_PROJECT_SUCCESS]: (state, action) => ({
+    [EDIT_USER_PROJECT]: (state, action) => ({
       ...state,
       projects: state.projects.every(
         project => project.id !== action.payload.id

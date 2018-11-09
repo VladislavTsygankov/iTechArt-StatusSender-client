@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
   projectName: state.router.location.state.project.name,
   projectId: state.router.location.state.project.id,
   currentStatus: state.status.currentStatus,
+  error: state.status.error,
 });
 
 const mapDispatchToProps = dispatch => ({

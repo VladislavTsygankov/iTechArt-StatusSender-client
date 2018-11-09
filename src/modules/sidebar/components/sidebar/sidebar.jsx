@@ -21,7 +21,11 @@ class Sidebar extends React.Component {
     dispatchGetUserProjects: PropTypes.func.isRequired,
     projects: PropTypes.arrayOf(PropTypes.object).isRequired,
     user: PropTypes.objectOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number])
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.number,
+      ])
     ),
   };
 

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { onlyUpdateForKeys } from 'recompose';
-import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import ButtonsContainer from '../buttons-container/project-status-buttons-container';
+import StatusInputArea from '../status-input-area/status-input-area';
+import CurrentStatus from '../current-status/current-status';
+import Notification from '../../../../components/notification/notification';
 
 import './project-status.less';
 
@@ -23,6 +25,19 @@ class ProjectStatus extends Component {
     const { dispatchGetCurrentStatus, projectId } = this.props;
 
     dispatchGetCurrentStatus(projectId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { projectId, projectName } = this.props;
+
+    if (
+      projectId !== nextProps.projectId &&
+      projectName !== nextProps.projectName
+    ) {
+      this.setState({
+        statusText: '',
+      });
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -52,10 +67,12 @@ class ProjectStatus extends Component {
   };
 
   render() {
-    const { projectName, currentStatus } = this.props;
+    const { statusText } = this.state;
+    const { projectName, currentStatus, error } = this.props;
 
     return (
       <Col md={10}>
+        <Notification message={error} />
         <Row className="main">
           <Col md={8} className="projects__content">
             <Row className="projects__name">
@@ -67,48 +84,18 @@ class ProjectStatus extends Component {
             </Row>
             <Row className="projects__status-container">
               {currentStatus ? (
-                <Col md={10} mdPush={2} className="projects__message">
-                  <Row className="project__message_status project__message_line">
-                    {`Status : ${currentStatus.status}`}
-                  </Row>
-                  <Row className="project__message_line">
-                    {`Date : ${moment(currentStatus.date).format(
-                      'DD/MM/YYYY'
-                    )}`}
-                  </Row>
-                  <Row className="project__message_line">
-                    {`At time : ${currentStatus.time}`}
-                  </Row>
-                </Col>
+                <CurrentStatus currentStatus={currentStatus} />
               ) : (
-                <Col md={10} mdPush={2} style={{ height: '100%' }}>
-                  <Row className="projects__caption">
-                    <h2>Enter your status:</h2>
-                  </Row>
-                  <Row className="projects__status-textarea">
-                    <textarea
-                      onChange={this.onChangeStatusText}
-                      name="status"
-                      placeholder="Status..."
-                      className="projects__status-textarea_big"
-                    />
-                  </Row>
-                </Col>
+                <StatusInputArea
+                  onChangeStatusText={this.onChangeStatusText}
+                  status={statusText}
+                />
               )}
             </Row>
-            <Row className="projects__button-container">
-              <Col md={4} mdPull={1}>
-                <button
-                  type="submit"
-                  className={classNames('button', 'submit', {
-                    disable: currentStatus !== null,
-                  })}
-                  onClick={this.onSetStatus}
-                >
-                  Submit
-                </button>
-              </Col>
-            </Row>
+            <ButtonsContainer
+              onSetStatus={this.onSetStatus}
+              currentStatus={currentStatus}
+            />
           </Col>
         </Row>
       </Col>
@@ -116,6 +103,9 @@ class ProjectStatus extends Component {
   }
 }
 
-export default onlyUpdateForKeys(['projectName', 'projectId', 'currentStatus'])(
-  ProjectStatus
-);
+export default onlyUpdateForKeys([
+  'projectName',
+  'projectId',
+  'currentStatus',
+  'error',
+])(ProjectStatus);

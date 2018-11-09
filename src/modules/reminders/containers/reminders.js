@@ -10,6 +10,7 @@ import {
 
 const mapStateToProps = state => ({
   reminders: state.reminders.reminders,
+  error: state.reminders.error,
 });
 
 const mapDispatchToProps = dispatch => ({

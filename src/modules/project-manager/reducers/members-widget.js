@@ -1,9 +1,5 @@
 import { handleActions } from 'redux-actions';
-import {
-  GET_FREE_USERS_FAILURE,
-  GET_FREE_USERS_REQUEST,
-  GET_FREE_USERS_SUCCESS,
-} from '../constants/members-widget';
+import { GET_FREE_USERS } from '../constants/members-widget';
 
 const INITIAL_STATE = {
   isLoading: false,
@@ -12,16 +8,16 @@ const INITIAL_STATE = {
 
 const widgetReducer = handleActions(
   {
-    [GET_FREE_USERS_REQUEST]: state => ({
+    [GET_FREE_USERS.REQUEST]: state => ({
       ...state,
       isLoading: true,
     }),
-    [GET_FREE_USERS_SUCCESS]: (state, action) => ({
+    [GET_FREE_USERS.SUCCESS]: (state, action) => ({
       ...state,
       isLoading: false,
       users: action.payload,
     }),
-    [GET_FREE_USERS_FAILURE]: () => ({
+    [GET_FREE_USERS.FAILURE]: () => ({
       ...INITIAL_STATE,
       isLoading: false,
     }),

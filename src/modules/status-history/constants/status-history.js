@@ -1,3 +1,3 @@
-export const GET_STATUS_HISTORY_REQUEST = 'GET_STATUS_HISTORY_REQUEST';
-export const GET_STATUS_HISTORY_SUCCESS = 'GET_STATUS_HISTORY_SUCCESS';
-export const GET_STATUS_HISTORY_FAILURE = 'GET_STATUS_HISTORY_FAILURE';
+import createDefineAction from '../../../helpers/define-action';
+
+export const GET_STATUS_HISTORY = createDefineAction('GET_STATUS_HISTORY');

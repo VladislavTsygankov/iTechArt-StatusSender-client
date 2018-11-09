@@ -5,19 +5,18 @@ import axios from 'axios';
 import store from './helpers/store';
 import history from './helpers/history';
 import App from './components/app/app';
-
-import { getLoggedUser } from './helpers/user-storage';
+import { AUTHORIZATION } from './constants/authorization';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import './styles/styles.less';
-
+import 'react-notifications/lib/notifications.css';
 
 axios.interceptors.request.use(
   config => {
-    if(getLoggedUser()){
-      config.headers.authorization = `Bearer ${getLoggedUser().token}`
-    };
+    if (AUTHORIZATION) {
+      config.headers.authorization = `Bearer ${AUTHORIZATION.token}`;
+    }
 
     return config;
   },

@@ -1,3 +1,7 @@
-export const GET_FREE_USERS_REQUEST = 'GET_FREE_USERS_REQUEST';
-export const GET_FREE_USERS_SUCCESS = 'GET_FREE_USERS_SUCCESS';
-export const GET_FREE_USERS_FAILURE = 'GET_FREE_USERS_FAILURE';
+import {defineAction} from 'redux-define';
+
+export const GET_FREE_USERS =  defineAction('GET_FREE_USERS', [
+    'SUCCESS',
+    'FAILURE',
+    'REQUEST',
+  ]);

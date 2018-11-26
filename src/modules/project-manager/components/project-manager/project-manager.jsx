@@ -4,6 +4,7 @@ import { Col } from 'react-bootstrap';
 import ManagementContainer from '../../../../components/common/management-container/management-container';
 import ProjectModal from '../project-modal/project-modal';
 import { DEFAULT_STATE } from '../../constants/default-state';
+import Notification from '../../../../components/notification/notification';
 
 class ProjectManager extends Component {
   state = {
@@ -71,11 +72,13 @@ class ProjectManager extends Component {
       dispatchEditProject,
       dispatchCreateProject,
       users,
+      error,
     } = this.props;
-    const { isOpenProjectModal, projectInfo } = this.state;
+    const { isOpenProjectModal, projectInfo } = this.state;    
 
     return (
       <Col md={10}>
+        <Notification message={error} />
         <ProjectModal
           isOpen={isOpenProjectModal}
           closeModal={this.onCloseProjectModal}
@@ -86,6 +89,7 @@ class ProjectManager extends Component {
           users={users}
         />
         <ManagementContainer
+          pageName="Project Manager"
           items={projects}
           onDeleteHandler={this.onDeleteProject}
           onEditHandler={this.onEditProject}
@@ -96,4 +100,4 @@ class ProjectManager extends Component {
   }
 }
 
-export default onlyUpdateForKeys(['projects', 'users'])(ProjectManager);
+export default onlyUpdateForKeys(['projects', 'users', 'error'])(ProjectManager);

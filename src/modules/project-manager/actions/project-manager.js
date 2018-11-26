@@ -25,9 +25,8 @@ const getAllProjects = () => dispatch => {
     .then(response =>
       dispatch({ type: GET_ALL_PROJECTS.SUCCESS, payload: response.data })
     )
-    .catch(err => {
+    .catch(() => {
       dispatch({ type: GET_ALL_PROJECTS.FAILURE });
-      console.log(err);
     });
 };
 
@@ -40,9 +39,8 @@ const deleteProjectById = id => dispatch => {
       dispatch({ type: DELETE_PROJECT.SUCCESS, payload: id });
       dispatch({ type: DELETE_USER_PROJECT, payload: id });
     })
-    .catch(err => {
+    .catch(() => {
       dispatch({ type: DELETE_PROJECT.FAILURE });
-      console.log(err);
     });
 };
 
@@ -63,9 +61,18 @@ const createProject = projectInfo => (dispatch, getState) => {
         });
       }
     })
-    .catch(err => {
-      dispatch({ type: CREATE_PROJECT.FAILURE });
-      console.log(err);
+    .catch(error => {
+      dispatch({
+        type: CREATE_PROJECT.FAILURE,
+        payload: {
+          type: 'error',
+          body: {
+            status: error.response.status,
+            statusText: error.response.statusText,
+            data: error.response.data,
+          },
+        },
+      });
     });
 };
 
@@ -91,9 +98,8 @@ const editProjectById = projectInfo => (dispatch, getState) => {
         });
       }
     })
-    .catch(err => {
+    .catch(() => {
       dispatch({ type: EDIT_PROJECT.FAILURE });
-      console.log(err);
     });
 };
 

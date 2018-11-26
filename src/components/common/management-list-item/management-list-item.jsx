@@ -5,7 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 import { faPen, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import './menagement-list-item.less';
+import './management-list-item.less';
 
 const ManagementListItem = ({ value, onEditItem, onDeleteItem }) => (
   <Col md={12}>

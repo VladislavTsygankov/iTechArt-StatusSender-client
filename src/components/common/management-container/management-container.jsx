@@ -12,10 +12,11 @@ const ManagementContainer = ({
   onCreateHandler,
   onEditHandler,
   onDeleteHandler,
+  pageName
 }) => (
   <Row className="main">
     <Col md={11} className="main__manager-container">
-      <Row className="main__caption"> Project manager</Row>
+      <Row className="main__caption">{pageName}</Row>
       <Row className="main__content">
         <Col md={9}>
           <Row className="main__list-container">
@@ -43,6 +44,7 @@ ManagementContainer.propTypes = {
   onCreateHandler: PropTypes.func.isRequired,
   onEditHandler: PropTypes.func.isRequired,
   onDeleteHandler: PropTypes.func.isRequired,
+  pageName: PropTypes.string.isRequired,
 };
 
-export default onlyUpdateForKeys(['items'])(ManagementContainer);
+export default onlyUpdateForKeys(['items', 'pageName'])(ManagementContainer);

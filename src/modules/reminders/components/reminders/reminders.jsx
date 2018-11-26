@@ -98,6 +98,7 @@ class Reminders extends Component {
           onDeleteHandler={dispatchRemoveReminder}
           onEditHandler={this.onEditReminder}
           onCreateHandler={this.onOpenModal}
+          pageName="Reminders"
         />
       </Col>
     );

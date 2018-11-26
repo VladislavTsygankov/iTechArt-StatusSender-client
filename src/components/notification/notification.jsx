@@ -24,16 +24,17 @@ class Notification extends Component {
   createNotification = message => {
     switch (message.type) {
       case 'info':
-        NotificationManager.info('Info message');
-        break;
-      case 'success':
-        NotificationManager.success('Success message', 'Title here');
+        NotificationManager.info(
+          message.body.data,
+          `${message.body.status} ${message.body.statusText}`,
+          3000
+        );
         break;
       case 'warning':
         NotificationManager.warning(
-          message.body.data,
+          'Try again',
           `${message.body.status} ${message.body.statusText}`,
-          1000
+          5000
         );
         break;
       case 'error':
@@ -46,6 +47,8 @@ class Notification extends Component {
       default:
         return null;
     }
+
+    return null;
   };
 
   render() {

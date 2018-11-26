@@ -12,16 +12,25 @@ const signIn = userInfo => dispatch => {
     .then(response => {
       setLoggedUser(response.data);
 
-      dispatch(push('/home'));
       dispatch({
         type: LOGIN_AUTHORIZATION.SUCCESS,
         payload: response.data,
       });
+
+      dispatch(push('/home'));
     })
-    .catch(err => {
-      dispatch({ type: LOGIN_AUTHORIZATION.FAILURE });
-      alert(err);
-      console.log(err);
+    .catch(error => {
+      dispatch({
+        type: LOGIN_AUTHORIZATION.FAILURE,
+        payload: {
+          type: 'warning',
+          body: {
+            status: error.response.status,
+            statusText: error.response.statusText,
+            data: error.response.data,
+          },
+        },
+      });
     });
 };
 

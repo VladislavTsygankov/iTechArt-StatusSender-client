@@ -10,7 +10,7 @@ const CurrentStatus = ({ currentStatus }) => (
       {`Status : ${currentStatus.status}`}
     </Row>
     <Row className="project__message_line">
-      {`Date : ${moment(currentStatus.date).format('DD/MM/YYYY')}`}
+      {`Date : ${moment(currentStatus.date).utc().format('DD/MM/YYYY')}`}
     </Row>
     <Row className="project__message_line">
       {`At time : ${currentStatus.time}`}

@@ -16,7 +16,6 @@ const AdminPrivateRoute = ({
       }
 
       if (user !== null) {
-        alert('Insufficient permissions');
         return <Redirect to="/home" />;
       }
 

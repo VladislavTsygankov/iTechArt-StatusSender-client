@@ -9,12 +9,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import SidebarItem from '../sidebar-item/sidebar-item';
 import SidebarDropdown from '../sidebar-dropdown/sidebar-dropdown';
+import Notification from '../../../../components/notification/notification';
 
 import './sidebar.less';
 
 class Sidebar extends React.Component {
   state = {
     isOpenDropdown: false,
+    message: {
+      type: '',
+      body: null,
+    },
   };
 
   static propTypes = {
@@ -50,7 +55,16 @@ class Sidebar extends React.Component {
     const { projects } = this.props;
 
     if (projects.length === 0) {
-      alert('You are do not have current projects');
+      this.setState({
+        message: {
+          type: 'info',
+          body: {
+            status: '',
+            statusText: 'There are no projects for you',
+            data: 'Ask admin',
+          },
+        },
+      });
     } else {
       this.setState({
         isOpenDropdown: !isOpenDropdown,
@@ -59,11 +73,12 @@ class Sidebar extends React.Component {
   };
 
   render() {
-    const { isOpenDropdown } = this.state;
-    const { user, projects } = this.props;
+    const { isOpenDropdown, message } = this.state;
+    const { user, projects } = this.props;    
 
     return user === null ? null : (
       <Col md={2} className="sidebar">
+        <Notification message={message} />;
         <Row>
           <Col sm={12} md={12} className="sidebar__menu">
             <SidebarDropdown

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { onlyUpdateForKeys } from 'recompose';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'react-bootstrap';
 import { isLength } from 'validator';
 import { Link } from 'react-router-dom';
 import LoginGroup from '../login-group/login-group';
+import Notification from '../../../../components/notification/notification';
 
 import './login-form.less';
 
@@ -19,6 +21,9 @@ class LoginForm extends Component {
 
   static propTypes = {
     dispatchSignIn: PropTypes.func.isRequired,
+    message: PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    ).isRequired,
   };
 
   getLoginValidationState = () => {
@@ -86,9 +91,11 @@ class LoginForm extends Component {
 
   render() {
     const { login, password } = this.state;
+    const { message } = this.props;
 
     return (
       <Col md={12}>
+        <Notification message={message} />
         <Row className="main">
           <Col md={8} className="login-form__container">
             <Row className="login-form__row">
@@ -140,4 +147,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default onlyUpdateForKeys(['message'])(LoginForm);

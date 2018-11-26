@@ -5,7 +5,7 @@ import axios from 'axios';
 import store from './helpers/store';
 import history from './helpers/history';
 import App from './components/app/app';
-import { AUTHORIZATION } from './constants/authorization';
+import {getLoggedUser} from './helpers/user-storage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
@@ -14,8 +14,8 @@ import 'react-notifications/lib/notifications.css';
 
 axios.interceptors.request.use(
   config => {
-    if (AUTHORIZATION) {
-      config.headers.authorization = `Bearer ${AUTHORIZATION.token}`;
+    if (getLoggedUser()) {
+      config.headers.authorization = `Bearer ${getLoggedUser().token}`;
     }
 
     return config;

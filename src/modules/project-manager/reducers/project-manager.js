@@ -9,6 +9,10 @@ import {
 const INITIAL_STATE = {
   isLoading: false,
   projects: [],
+  error: {
+    type: '',
+    body: null,
+  },
 };
 
 const projectManagerReducer = handleActions(
@@ -42,15 +46,20 @@ const projectManagerReducer = handleActions(
     [CREATE_PROJECT.REQUEST]: state => ({
       ...state,
       isLoading: true,
+      error: {
+        type: '',
+        body: null,
+      },
     }),
     [CREATE_PROJECT.SUCCESS]: (state, action) => ({
       ...state,
       isLoading: false,
       projects: [...state.projects, action.payload],
     }),
-    [CREATE_PROJECT.FAILURE]: state => ({
+    [CREATE_PROJECT.FAILURE]: (state, action) => ({
       ...state,
       isLoading: false,
+      error: action.payload,
     }),
     [EDIT_PROJECT.REQUEST]: state => ({
       ...state,

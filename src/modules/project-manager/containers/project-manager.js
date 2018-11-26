@@ -12,6 +12,7 @@ import { getFreeUsersByProjectId } from '../actions/members-widget';
 const mapStateToProps = state => ({
   projects: state.projectsManager.projects,
   users: state.usersWidget.users,
+  error: state.projectsManager.error,
 });
 
 const mapDispatchToProps = dispatch => ({

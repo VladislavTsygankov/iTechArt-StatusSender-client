@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Row, FormControl, FormGroup, ControlLabel } from 'react-bootstrap';
 import { onlyUpdateForKeys } from 'recompose';
 import TimePicker from 'react-bootstrap-time-picker';
@@ -26,16 +27,25 @@ const ModalTimePicker = ({
         {pickerLabel}
       </ControlLabel>
       <TimePicker
-       value={pickerValue}
-       onChange={pickerOnChange}
-       format={24}
-       start="00:00"
-       end="23:59"
-       step={15}
+        value={pickerValue}
+        onChange={pickerOnChange}
+        format={24}
+        start="00:00"
+        end="23:59"
+        step={15}
       />
     </FormGroup>
   </Row>
 );
+
+ModalTimePicker.propTypes = {
+  caption: PropTypes.string.isRequired,
+  inputLabel: PropTypes.string.isRequired,
+  inputValue: PropTypes.string.isRequired,
+  pickerLabel: PropTypes.string.isRequired,
+  inputOnchange: PropTypes.func.isRequired,
+  pickerOnChange: PropTypes.func.isRequired,
+};
 
 export default onlyUpdateForKeys([
   'caption',

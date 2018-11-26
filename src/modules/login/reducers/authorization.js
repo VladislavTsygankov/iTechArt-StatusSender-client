@@ -6,6 +6,10 @@ const INITIAL_STATE = {
   isLoading: false,
   user: AUTHORIZATION ? AUTHORIZATION.user : null,
   token: AUTHORIZATION ? AUTHORIZATION.token : null,
+  message: {
+    type: '',
+    body: null,
+  },
 };
 
 const authorizationReducer = handleActions(
@@ -13,6 +17,10 @@ const authorizationReducer = handleActions(
     [LOGIN_AUTHORIZATION.REQUEST]: state => ({
       ...state,
       isLoading: true,
+      message: {
+        type: '',
+        body: null,
+      },
     }),
     [LOGIN_AUTHORIZATION.SUCCESS]: (state, action) => ({
       ...state,
@@ -21,9 +29,10 @@ const authorizationReducer = handleActions(
       isLoggedIn: true,
       isLoading: false,
     }),
-    [LOGIN_AUTHORIZATION.FAILURE]: () => ({
-      ...INITIAL_STATE,
+    [LOGIN_AUTHORIZATION.FAILURE]: (state, action) => ({
+      ...state,
       isLoading: false,
+      message: action.payload,
     }),
   },
   INITIAL_STATE

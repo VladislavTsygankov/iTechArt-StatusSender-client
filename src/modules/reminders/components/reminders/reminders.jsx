@@ -4,6 +4,7 @@ import { onlyUpdateForKeys } from 'recompose';
 import ReminderModal from '../reminder-modal/reminder-modal';
 import ManagementContainer from '../../../../components/common/management-container/management-container';
 import Notification from '../../../../components/notification/notification';
+import timeHelper from '../../../../helpers/time-helper';
 
 class Reminders extends Component {
   state = {
@@ -43,10 +44,13 @@ class Reminders extends Component {
     const { reminderValue, openReminderId } = this.state;
 
     if (openReminderId === null) {
-      dispatchCreateReminder(reminderValue);
+      dispatchCreateReminder(timeHelper.getTimeFromSeconds(reminderValue));
       this.onCloseModal();
     } else {
-      dispatchEditReminder(reminderValue, openReminderId);
+      dispatchEditReminder(
+        timeHelper.getTimeFromSeconds(reminderValue),
+        openReminderId
+      );
       this.onCloseModal();
     }
   };
@@ -85,7 +89,7 @@ class Reminders extends Component {
 
     return (
       <Col md={10}>
-      <Notification message={error} />
+        <Notification message={error} />
         <ReminderModal
           isOpen={isOpenReminderModal}
           onChangeReminderValue={this.onChangeReminderValue}

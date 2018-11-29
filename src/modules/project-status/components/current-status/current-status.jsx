@@ -1,6 +1,5 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import moment from 'moment';
 import { onlyUpdateForKeys } from 'recompose';
 import PropTypes from 'prop-types';
 
@@ -10,7 +9,7 @@ const CurrentStatus = ({ currentStatus }) => (
       {`Status : ${currentStatus.status}`}
     </Row>
     <Row className="project__message_line">
-      {`Date : ${moment(currentStatus.date).utc().format('DD/MM/YYYY')}`}
+      {`Date : ${currentStatus.date}`}
     </Row>
     <Row className="project__message_line">
       {`At time : ${currentStatus.time}`}

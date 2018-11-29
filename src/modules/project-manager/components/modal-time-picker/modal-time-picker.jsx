@@ -32,7 +32,7 @@ const ModalTimePicker = ({
         format={24}
         start="00:00"
         end="23:59"
-        step={15}
+        step={1}
       />
     </FormGroup>
   </Row>

@@ -34,9 +34,9 @@ const ReminderModal = ({
         onChange={onChangeReminderValue}
         value={value}
         format={24}
-        start="00:05"
-        end="05:00"
-        step={5}
+        start="00:01"
+        end="01:00"
+        step={1}
       />
       <button
         type="button"

@@ -8,6 +8,7 @@ import ModalTimePicker from '../modal-time-picker/modal-time-picker';
 import MembersWidget from '../members-widget/members-widget';
 import ModalFooter from '../modal-footer/modal-footer';
 import ModalHeader from '../modal-header/modal-header';
+import timeHelper from '../../../../helpers/time-helper';
 import { DEFAULT_STATE } from '../../constants/default-state';
 
 import './project-modal.less';
@@ -120,10 +121,31 @@ class ProjectModal extends Component {
     const { project } = this.state;
 
     if (projectInfo.id !== '') {
-      onEditProject(project);
+      onEditProject({
+        ...lodash.pick(project, [
+          'id',
+          'name',
+          'greeting',
+          'addressees',
+          'copyAddressees',
+          'signature',
+          'assignedUsers',
+        ]),
+        timeForSend: timeHelper.getTimeFromSeconds(project.timeForSend),
+      });
       closeModal();
     } else {
-      onCreateProject(project);
+      onCreateProject({
+        ...lodash.pick(project, [
+          'name',
+          'greeting',
+          'addressees',
+          'copyAddressees',
+          'signature',
+          'assignedUsers',
+        ]),
+        timeForSend: timeHelper.getTimeFromSeconds(project.timeForSend),
+      });
       closeModal();
     }
   };

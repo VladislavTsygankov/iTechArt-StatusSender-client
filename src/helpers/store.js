@@ -9,7 +9,7 @@ const middleware = [routerMiddleware(history), thunk];
 
 const store = createStore(
   connectRouter(history)(rootReducer),
-  composeWithDevTools(applyMiddleware(...middleware))
+  composeWithDevTools(applyMiddleware(...middleware)),
 );
 
 export default store;

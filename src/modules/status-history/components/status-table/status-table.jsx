@@ -32,7 +32,7 @@ const StatusTable = ({
           {user.role === 'admin' ? <td>{status.User.username}</td> : null}
           <td>{status.status}</td>
           <td>{status.time}</td>
-          <td>{moment(status.date).format('DD/MM/YYYY')}</td>
+          <td>{status.date}</td>
         </tr>
       ))}
     </tbody>

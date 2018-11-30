@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { onlyUpdateForKeys } from 'recompose';
 import { Col } from 'react-bootstrap';
+import lodash from 'lodash';
 import ManagementContainer from '../../../../components/common/management-container/management-container';
 import ProjectModal from '../project-modal/project-modal';
 import { DEFAULT_STATE } from '../../constants/default-state';
 import Notification from '../../../../components/notification/notification';
+import timeHelper from '../../../../helpers/time-helper';
 
 class ProjectManager extends Component {
   state = {
@@ -47,7 +49,18 @@ class ProjectManager extends Component {
       this.onOpenProjectModal();
 
       this.setState({
-        projectInfo: { ...foundProject },
+        projectInfo: {
+          ...lodash.pick(foundProject, [
+            'id',
+            'name',
+            'addressees',
+            'copyAddressees',
+            'greeting',
+            'signature',
+            'assignedUsers'
+          ]),
+          timeForSend: timeHelper.getSecondsFromTime(foundProject.timeForSend),
+        },
       });
     } else {
       this.onOpenProjectModal();
@@ -74,7 +87,7 @@ class ProjectManager extends Component {
       users,
       error,
     } = this.props;
-    const { isOpenProjectModal, projectInfo } = this.state;    
+    const { isOpenProjectModal, projectInfo } = this.state;
 
     return (
       <Col md={10}>
@@ -100,4 +113,6 @@ class ProjectManager extends Component {
   }
 }
 
-export default onlyUpdateForKeys(['projects', 'users', 'error'])(ProjectManager);
+export default onlyUpdateForKeys(['projects', 'users', 'error'])(
+  ProjectManager
+);

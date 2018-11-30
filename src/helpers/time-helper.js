@@ -2,4 +2,6 @@ import { LocalTime } from 'js-joda';
 
 const getTimeFromSeconds = seconds => LocalTime.ofSecondOfDay(seconds);
 
-export default { getTimeFromSeconds };
+const getSecondsFromTime = time => LocalTime.parse(time).toSecondOfDay();
+
+export default { getTimeFromSeconds, getSecondsFromTime };

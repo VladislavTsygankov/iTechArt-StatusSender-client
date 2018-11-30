@@ -9,7 +9,7 @@ import timeHelper from '../../../../helpers/time-helper';
 class Reminders extends Component {
   state = {
     isOpenReminderModal: false,
-    reminderValue: 0,
+    reminderValue: 300,
     openReminderId: null,
   };
 
@@ -61,7 +61,7 @@ class Reminders extends Component {
 
     this.setState({
       openReminderId: foundReminder.id,
-      reminderValue: foundReminder.value,
+      reminderValue: timeHelper.getSecondsFromTime(foundReminder.value),
     });
 
     this.onOpenModal();

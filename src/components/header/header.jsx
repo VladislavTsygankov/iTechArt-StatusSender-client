@@ -21,7 +21,7 @@ const Header = ({ user }) => (
     <Col md={10}>
       {user ? (
         <Row className="header__toolbar">
-          <Col md={1} sm={1} className="header__item">
+          <Col md={2} sm={2} className="header__item">
             {user.username}
           </Col>
           <Col md={1} sm={1}>
